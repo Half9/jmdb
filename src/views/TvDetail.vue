@@ -208,7 +208,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           tvSerie.value = data.data;
-          console.log(tvSerie.value);
+          // console.log(tvSerie.value);
         });
     });
 
@@ -225,15 +225,19 @@ export default {
 h3 {
   margin-bottom: 1rem;
 }
+
 .flex-center {
   align-items: center;
 }
+
 .flex {
   gap: 1rem;
 }
+
 .button {
   margin: 2rem 0;
 }
+
 img {
   border-radius: 1rem;
 }
@@ -241,6 +245,7 @@ img {
 #container {
   z-index: 9999;
 }
+
 .backdrop {
   background-size: cover;
   background-position: bottom;
@@ -255,12 +260,14 @@ img {
     margin-top: -32px;
   }
 }
+
 .movie-info {
   color: #fff;
 
   .title h2 {
     margin-bottom: 0rem;
   }
+
   .vote {
     background-color: var(--prime-color);
     height: 100%;
@@ -272,6 +279,7 @@ img {
       font-size: 2.5rem;
     }
   }
+
   .tagline {
     margin-top: 0.5rem;
   }
@@ -291,6 +299,7 @@ img {
       margin-bottom: 0.5rem;
     }
   }
+
   .overview {
     margin: 4rem 0;
 
@@ -301,6 +310,7 @@ img {
       // margin-bottom: 1rem;
     }
   }
+
   .status {
     background-color: var(--prime-color);
     display: inline-block;
@@ -311,15 +321,19 @@ img {
       font-size: 1rem;
     }
   }
+
   .runtime {
     margin: 2rem 0;
+
     p {
       font-size: 1.5rem;
     }
   }
+
   .collection {
     h3 {
     }
+
     span {
       background-color: var(--prime-color);
       display: inline-block;
@@ -331,13 +345,16 @@ img {
     }
   }
 }
+
 .similar .flex p:last-child,
 .recommendations .flex p:last-child {
   margin-left: auto;
 }
+
 .margin-top {
   margin-top: 2rem;
 }
+
 .card {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 0.5rem;
@@ -350,10 +367,12 @@ img {
     background-color: var(--prime-color);
     color: #fff;
   }
+
   img {
     width: 20px;
     border-radius: 0.5rem;
   }
+
   .empty-poster {
     width: 20px;
     height: 1px;
@@ -363,10 +382,12 @@ img {
     font-weight: 700;
   }
 }
+
 .cast {
   a {
     color: #fff;
   }
+
   img {
     width: 120px;
     border-radius: 0.5rem;
@@ -374,6 +395,7 @@ img {
 
   p {
     font-size: 0.8rem;
+
     &:first-of-type {
       margin-top: 0.5rem;
     }
@@ -385,6 +407,7 @@ img {
     font-size: 4rem;
     justify-content: center;
   }
+
   p {
     color: #fff;
 
@@ -393,19 +416,23 @@ img {
     }
   }
 }
+
 @media (max-width: 900px) {
   .poster {
     height: 400px;
   }
 }
+
 @media (max-width: 600px) {
   .top {
     flex-direction: column;
   }
+
   .poster {
     width: 140px;
     height: 200px;
   }
+
   .grid2 {
     grid-template-columns: 1fr;
   }
