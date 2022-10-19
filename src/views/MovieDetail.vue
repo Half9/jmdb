@@ -6,7 +6,10 @@
           <router-link to="/"> <button>&#60; Back</button></router-link>
         </div>
         <div class="flex flex-nowrap top">
-          <img v-if="movie.poster_path != null" :src="`${picUrl}${movie.poster_path}`" :alt="`${movie.title}`"
+          <img
+            v-if="movie.poster_path != null"
+            :src="`${picUrl}${movie.poster_path}`"
+            :alt="`${movie.title}`"
             class="poster" />
           <div class="movie-info">
             <div class="flex">
@@ -34,7 +37,8 @@
               <p>
                 <strong>{{ movie.status }}</strong>
                 <span v-if="movie.status == 'Released'">
-                  in {{ movie.release_date.substring(0, 4) }}</span>
+                  in {{ movie.release_date.substring(0, 4) }}</span
+                >
               </p>
             </div>
             <div class="runtime" v-if="movie.runtime > 0">
@@ -63,34 +67,46 @@
   <div class="container" id="container">
     <h3 class="margin-top">Cast</h3>
     <div class="slider" v-if="movie.title">
-      <Splide :options="{
-        drag: 'free',
-        fixedWidth: '130px',
-        snap: true,
-        perPage: 7,
-        breakpoints: {
-          900: {
-            perPage: 6,
+      <Splide
+        :options="{
+          drag: 'free',
+          fixedWidth: '130px',
+          snap: true,
+          perPage: 7,
+          breakpoints: {
+            900: {
+              perPage: 6,
+            },
+            790: {
+              perPage: 5,
+            },
+            650: {
+              perPage: 4,
+            },
+            540: {
+              perPage: 3,
+            },
+            410: {
+              perPage: 2,
+            },
           },
-          790: {
-            perPage: 5,
-          },
-          650: {
-            perPage: 4,
-          },
-          540: {
-            perPage: 3,
-          },
-          410: {
-            perPage: 2,
-          },
-        },
-      }">
-        <SplideSlide class="cast" v-for="(cast, id) in movie.credits.cast.slice(0, 14)" :key="id">
-          <router-link :to="'/person/' + cast.id" class="flex flex-col flex-nogap">
-            <img v-if="cast.profile_path" :src="`${picUrl}${cast.profile_path}`" alt="" />
+        }">
+        <SplideSlide
+          class="cast"
+          v-for="(cast, id) in movie.credits.cast.slice(0, 14)"
+          :key="id">
+          <router-link
+            :to="'/person/' + cast.id"
+            class="flex flex-col flex-nogap">
+            <img
+              v-if="cast.profile_path"
+              :src="`${picUrl}${cast.profile_path}`"
+              alt="" />
 
-            <img v-else src="@/assets/img/noprofile.png" alt="No profile image" />
+            <img
+              v-else
+              src="@/assets/img/noprofile.png"
+              alt="No profile image" />
 
             <p>
               <strong>{{ cast.character }}</strong>
@@ -127,10 +143,15 @@
       </div>
       <div class="recommendations" v-if="movie.title">
         <h3>recommendations</h3>
-        <div v-for="(rec, id) in movie.recommendations.results.slice(0, 5)" :key="id">
+        <div
+          v-for="(rec, id) in movie.recommendations.results.slice(0, 5)"
+          :key="id">
           <router-link :to="'/movie/' + rec.id">
             <div class="card flex flex-center">
-              <img v-if="rec.poster_path" :src="`${picUrl}${rec.poster_path}`" :alt="rec.title" />
+              <img
+                v-if="rec.poster_path"
+                :src="`${picUrl}${rec.poster_path}`"
+                :alt="rec.title" />
               <div v-else class="empty-poster"></div>
 
               <h4>{{ rec.vote_average.toFixed(1) }}</h4>
@@ -320,7 +341,8 @@ img {
   }
 
   .collection {
-    h3 {}
+    h3 {
+    }
 
     span {
       background-color: var(--prime-color);

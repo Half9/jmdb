@@ -6,7 +6,10 @@
           <router-link to="/"> <button>&#60; Back</button></router-link>
         </div>
         <div class="flex flex-nowrap top">
-          <img v-if="person.profile_path != null" :src="`${picUrl}${person.profile_path}`" :alt="`${person.name}`"
+          <img
+            v-if="person.profile_path != null"
+            :src="`${picUrl}${person.profile_path}`"
+            :alt="`${person.name}`"
             class="poster" />
           <div class="movie-info">
             <div class="flex">
@@ -30,7 +33,8 @@
               <p>
                 <strong>{{ person.status }}</strong>
                 <span v-if="person.status == 'Released'">
-                  in {{ person.release_date.substring(0, 4) }}</span>
+                  in {{ person.release_date.substring(0, 4) }}</span
+                >
               </p>
             </div>
             <div class="runtime" v-if="person.runtime > 0">
@@ -214,7 +218,8 @@ img {
   }
 
   .collection {
-    h3 {}
+    h3 {
+    }
 
     span {
       background-color: var(--prime-color);
