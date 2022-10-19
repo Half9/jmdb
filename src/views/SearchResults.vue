@@ -6,27 +6,23 @@
       <div
         class="card flex flex-col"
         v-for="(item, id) in searchResult"
-        :key="id"
-      >
+        :key="id">
         <router-link :to="'/' + item.media_type + '/' + item.id">
           <div class="poster">
             <img
               v-if="item.media_type !== 'person' && item.poster_path !== null"
               :src="`${picUrl}${item.poster_path}`"
-              :alt="item.title"
-            />
+              :alt="item.title" />
             <img
               v-else-if="
                 item.media_type == 'person' && item.profile_path !== null
               "
               :src="`${picUrl}${item.profile_path}`"
-              :alt="item.title"
-            />
+              :alt="item.title" />
             <img
               v-else
               src="@/assets/img/noprofile.png"
-              alt="No profile image"
-            />
+              alt="No profile image" />
           </div>
           <div class="info">
             <h3>{{ item.title }}{{ item.name }}</h3>
@@ -47,39 +43,39 @@
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar.vue";
-import { useRoute } from "vue-router";
-import { ref, onBeforeMount } from "vue";
+import SearchBar from '@/components/SearchBar.vue'
+import { useRoute } from 'vue-router'
+import { ref, onBeforeMount } from 'vue'
 
-const picUrl = "https://image.tmdb.org/t/p/w500";
+const picUrl = 'https://image.tmdb.org/t/p/w500'
 
 export default {
   setup() {
-    const route = useRoute();
-    const searchTerm = route.params.id;
-    const searchResult = ref([]);
+    const route = useRoute()
+    const searchTerm = route.params.id
+    const searchResult = ref([])
 
     onBeforeMount(async () => {
       await fetch(`/.netlify/functions/searchItems`, {
-        method: "post",
+        method: 'post',
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: searchTerm,
       })
         .then((response) => response.json())
         .then((data) => {
-          searchResult.value = data.data.results;
+          searchResult.value = data.data.results
           window.localStorage.setItem(
-            "searchResultHistory",
+            'searchResultHistory',
             JSON.stringify(searchResult.value)
-          );
+          )
           window.localStorage.setItem(
-            "searchHistory",
+            'searchHistory',
             JSON.stringify(searchTerm)
-          );
-        });
-    });
+          )
+        })
+    })
 
     // if (window.localStorage.getItem("searchResultHistory") !== null) {
     //   searchResult.value = JSON.parse(
@@ -90,10 +86,10 @@ export default {
     return {
       searchResult,
       picUrl,
-    };
+    }
   },
   components: { SearchBar },
-};
+}
 </script>
 
 <style lang="scss">

@@ -7,13 +7,13 @@
 </template>
 
 <script>
-import TopMovies from "@/components/TopMovies.vue";
-import SearchBar from "@/components/SearchBar.vue";
-import SearchResultsMini from "@/components/SearchResultsMini.vue";
+import TopMovies from '@/components/TopMovies.vue'
+import SearchBar from '@/components/SearchBar.vue'
+import SearchResultsMini from '@/components/SearchResultsMini.vue'
 
 export default {
   components: { TopMovies, SearchBar, SearchResultsMini },
-};
+}
 </script>
 
 <style lang="scss">

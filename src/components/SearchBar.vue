@@ -4,21 +4,18 @@
       <form
         @keyup="searchItems()"
         @keydown.enter="$router.push({ path: `/search/` + `${search}` })"
-        @click.prevent="searchItems()"
-      >
+        @click.prevent="searchItems()">
         <input
           type="text"
           placeholder="Search for movies or series"
           v-model="search"
           @focus="showResults = true"
-          @blur="showResults = false"
-        />
+          @blur="showResults = false" />
         <button v-if="search != ''" @click="clearSearch()">X</button>
         <input
           type="submit"
           value="Search"
-          @click="$router.push({ path: `/search/` + `${search}` })"
-        />
+          @click="$router.push({ path: `/search/` + `${search}` })" />
       </form>
       <div class="search-results" v-if="showResults" @mousedown.prevent>
         <div class="wrapper">
@@ -37,52 +34,52 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref } from 'vue'
 
 export default {
   setup() {
-    const search = ref("");
-    const searchResult = ref([]);
-    const picUrl = "https://image.tmdb.org/t/p/w500";
-    const showResults = ref(false);
+    const search = ref('')
+    const searchResult = ref([])
+    const picUrl = 'https://image.tmdb.org/t/p/w500'
+    const showResults = ref(false)
 
-    if (window.localStorage.getItem("searchHistory") !== null) {
-      search.value = JSON.parse(window.localStorage.getItem("searchHistory"));
+    if (window.localStorage.getItem('searchHistory') !== null) {
+      search.value = JSON.parse(window.localStorage.getItem('searchHistory'))
     }
 
-    if (window.localStorage.getItem("searchResultHistory") !== null) {
+    if (window.localStorage.getItem('searchResultHistory') !== null) {
       searchResult.value = JSON.parse(
-        window.localStorage.getItem("searchResultHistory")
-      );
+        window.localStorage.getItem('searchResultHistory')
+      )
     }
 
     const clearSearch = () => {
-      search.value = "";
-    };
+      search.value = ''
+    }
 
     const searchItems = async () => {
-      if (search.value != "") {
+      if (search.value != '') {
         await fetch(`/.netlify/functions/searchItems`, {
-          method: "post",
+          method: 'post',
           headers: {
-            "content-type": "application/json",
+            'content-type': 'application/json',
           },
           body: search.value,
         })
           .then((response) => response.json())
           .then((data) => {
-            searchResult.value = data.data.results;
+            searchResult.value = data.data.results
             window.localStorage.setItem(
-              "searchResultHistory",
+              'searchResultHistory',
               JSON.stringify(searchResult.value)
-            );
+            )
             window.localStorage.setItem(
-              "searchHistory",
+              'searchHistory',
               JSON.stringify(search.value)
-            );
-          });
+            )
+          })
       }
-    };
+    }
 
     return {
       search,
@@ -91,9 +88,9 @@ export default {
       picUrl,
       clearSearch,
       showResults,
-    };
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -120,7 +117,7 @@ export default {
       border: 0;
     }
 
-    input[type="text"] {
+    input[type='text'] {
       padding: 0.5rem 1rem;
       font-size: 1.2rem;
       width: 100%;
@@ -131,7 +128,7 @@ export default {
         outline: 0;
       }
     }
-    input[type="submit"] {
+    input[type='submit'] {
       padding: 0.5rem 1rem;
       z-index: 999;
 

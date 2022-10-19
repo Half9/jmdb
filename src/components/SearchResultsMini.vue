@@ -29,27 +29,23 @@
           perPage: 2,
         },
       },
-    }"
-  >
+    }">
     <SplideSlide
       class="card flex flex-col"
       v-for="(item, id) in searchResult.slice(0, 14)"
-      :key="id"
-    >
+      :key="id">
       <router-link :to="'/' + item.media_type + '/' + item.id">
         <div class="poster">
           <img
             v-if="item.media_type !== 'person' && item.poster_path !== null"
             :src="`${picUrl}${item.poster_path}`"
-            :alt="item.title"
-          />
+            :alt="item.title" />
           <img
             v-else-if="
               item.media_type == 'person' && item.profile_path !== null
             "
             :src="`${picUrl}${item.profile_path}`"
-            :alt="item.title"
-          />
+            :alt="item.title" />
           <img v-else src="@/assets/img/noprofile.png" alt="No profile image" />
         </div>
         <div class="info">
@@ -73,39 +69,39 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
-import { Splide, SplideSlide } from "@splidejs/vue-splide";
-import "@splidejs/vue-splide/css";
+import { ref, computed } from 'vue'
+import { Splide, SplideSlide } from '@splidejs/vue-splide'
+import '@splidejs/vue-splide/css'
 
-const picUrl = "https://image.tmdb.org/t/p/w500";
-const searchResult = ref([]);
+const picUrl = 'https://image.tmdb.org/t/p/w500'
+const searchResult = ref([])
 
 export default {
   setup() {
-    if (window.localStorage.getItem("searchResultHistory") !== null) {
+    if (window.localStorage.getItem('searchResultHistory') !== null) {
       searchResult.value = JSON.parse(
-        window.localStorage.getItem("searchResultHistory")
-      );
+        window.localStorage.getItem('searchResultHistory')
+      )
     }
     // console.log(searchResult);
     const clearSearch = () => {
-      searchResult.value = "";
-      localStorage.clear("searchResultHistory");
-    };
+      searchResult.value = ''
+      localStorage.clear('searchResultHistory')
+    }
 
     const showSearch = computed(() => {
-      return searchResult.value == "" ? false : true;
-    });
+      return searchResult.value == '' ? false : true
+    })
 
     return {
       searchResult,
       showSearch,
       clearSearch,
       picUrl,
-    };
+    }
   },
   components: { Splide, SplideSlide },
-};
+}
 </script>
 
 <style lang="scss" scoped>

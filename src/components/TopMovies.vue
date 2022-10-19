@@ -7,8 +7,7 @@
       class="movie-card"
       :style="{
         'background-image': 'url(' + picUrl + '' + movie.poster_path + ')',
-      }"
-    >
+      }">
       <router-link :to="'/' + movie.media_type + '/' + movie.id">
         <div class="gradian">
           <div>
@@ -42,25 +41,25 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from 'vue'
 
 export default {
   setup() {
-    const topMoviesWeek = ref([]);
-    const picUrl = "https://image.tmdb.org/t/p/w500";
+    const topMoviesWeek = ref([])
+    const picUrl = 'https://image.tmdb.org/t/p/w500'
 
     onBeforeMount(async () => {
       await fetch(`.netlify/functions/getPopularWeek`)
         .then((response) => response.json())
         .then((data) => {
-          topMoviesWeek.value = data.data.results;
-        });
-    });
+          topMoviesWeek.value = data.data.results
+        })
+    })
 
     return {
       topMoviesWeek,
       picUrl,
-    };
+    }
   },
-};
+}
 </script>

@@ -11,7 +11,7 @@
 </template>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;900&display=swap');
 
 :root {
   --prime-color: #fe4141;
@@ -23,7 +23,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Fira Sans", sans-serif;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 body {

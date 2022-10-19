@@ -10,8 +10,7 @@
             v-if="tvSerie.poster_path != null"
             :src="`${picUrl}${tvSerie.poster_path}`"
             :alt="`${tvSerie.name}`"
-            class="poster"
-          />
+            class="poster" />
           <div class="movie-info">
             <div class="flex">
               <div class="vote" v-if="tvSerie.vote_average > 0">
@@ -92,28 +91,23 @@
               perPage: 2,
             },
           },
-        }"
-      >
+        }">
         <SplideSlide
           class="cast"
           v-for="(cast, id) in tvSerie.credits.cast.slice(0, 14)"
-          :key="id"
-        >
+          :key="id">
           <router-link
             :to="'/person/' + cast.id"
-            class="flex flex-col flex-nogap"
-          >
+            class="flex flex-col flex-nogap">
             <img
               v-if="cast.profile_path"
               :src="`${picUrl}${cast.profile_path}`"
-              alt=""
-            />
+              alt="" />
 
             <img
               v-else
               src="@/assets/img/noprofile.png"
-              alt="No profile image"
-            />
+              alt="No profile image" />
 
             <p>
               <strong>{{ cast.character }}</strong>
@@ -152,15 +146,13 @@
         <h3>recommendations</h3>
         <div
           v-for="(rec, id) in tvSerie.recommendations.results.slice(0, 5)"
-          :key="id"
-        >
+          :key="id">
           <router-link :to="'/tv/' + rec.id">
             <div class="card flex flex-center">
               <img
                 v-if="rec.poster_path"
                 :src="`${picUrl}${rec.poster_path}`"
-                :alt="rec.name"
-              />
+                :alt="rec.name" />
               <div v-else class="empty-poster"></div>
 
               <h4>{{ rec.vote_average.toFixed(1) }}</h4>
@@ -176,50 +168,50 @@
   </div>
 </template>
 <script>
-import { ref, onBeforeMount, computed } from "vue";
-import { useRoute } from "vue-router";
-import { Splide, SplideSlide } from "@splidejs/vue-splide";
-import "@splidejs/vue-splide/css";
+import { ref, onBeforeMount, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { Splide, SplideSlide } from '@splidejs/vue-splide'
+import '@splidejs/vue-splide/css'
 
 export default {
   setup() {
-    const tvSerie = ref([]);
-    const route = useRoute();
-    const picUrl = "https://image.tmdb.org/t/p/w500";
-    const picUrlbg = "https://image.tmdb.org/t/p/original";
-    const tvId = route.params.id;
+    const tvSerie = ref([])
+    const route = useRoute()
+    const picUrl = 'https://image.tmdb.org/t/p/w500'
+    const picUrlbg = 'https://image.tmdb.org/t/p/original'
+    const tvId = route.params.id
 
     const haveBackdrop = computed(() => {
       if (tvSerie.value.backdrop_path != null) {
-        return `background-image: url(${picUrlbg}${tvSerie.value.backdrop_path})`;
+        return `background-image: url(${picUrlbg}${tvSerie.value.backdrop_path})`
       } else {
-        return ` background: rgb(33,31,31); background: linear-gradient(180deg, rgba(33,31,31,1) 38%, rgba(254,65,65,1) 100%); `;
+        return ` background: rgb(33,31,31); background: linear-gradient(180deg, rgba(33,31,31,1) 38%, rgba(254,65,65,1) 100%); `
       }
-    });
+    })
 
     onBeforeMount(async () => {
       await fetch(`/.netlify/functions/getTvInfo`, {
-        method: "post",
+        method: 'post',
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: tvId,
       })
         .then((response) => response.json())
         .then((data) => {
-          tvSerie.value = data.data;
+          tvSerie.value = data.data
           // console.log(tvSerie.value);
-        });
-    });
+        })
+    })
 
     return {
       tvSerie,
       picUrl,
       haveBackdrop,
-    };
+    }
   },
   components: { Splide, SplideSlide },
-};
+}
 </script>
 <style lang="scss" scoped>
 h3 {

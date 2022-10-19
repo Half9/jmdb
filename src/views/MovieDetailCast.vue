@@ -9,8 +9,7 @@
               <img
                 v-if="actor.profile_path"
                 :src="`${picUrl}${actor.profile_path}`"
-                :alt="actor.name"
-              />
+                :alt="actor.name" />
               <img v-else src="@/assets/img/noprofile.png" :alt="actor.name" />
               <div class="name">
                 <p>{{ actor.name }}</p>
@@ -27,8 +26,7 @@
             <img
               v-if="crew.profile_path"
               :src="`${picUrl}${crew.profile_path}`"
-              :alt="crew.name"
-            />
+              :alt="crew.name" />
             <img v-else src="@/assets/img/noprofile.png" :alt="crew.name" />
             <router-link :to="'/person/' + crew.id" class="flex">
               <div class="name">
@@ -43,37 +41,37 @@
   </div>
 </template>
 <script>
-import { ref, onBeforeMount } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onBeforeMount } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default {
   setup() {
-    const movie = ref([]);
-    const route = useRoute();
-    const movieId = route.params.id;
-    const picUrl = "https://image.tmdb.org/t/p/w500";
+    const movie = ref([])
+    const route = useRoute()
+    const movieId = route.params.id
+    const picUrl = 'https://image.tmdb.org/t/p/w500'
 
     onBeforeMount(async () => {
       await fetch(`/.netlify/functions/getMovieCast`, {
-        method: "post",
+        method: 'post',
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: movieId,
       })
         .then((response) => response.json())
         .then((data) => {
-          movie.value = data.data;
-          console.log(movie.value);
-        });
-    });
+          movie.value = data.data
+          console.log(movie.value)
+        })
+    })
 
     return {
       movie,
       picUrl,
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .flex {
