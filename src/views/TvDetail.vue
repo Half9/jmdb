@@ -1,20 +1,18 @@
 <template>
-  <div class="backdrop" v-bind:style="haveBackdrop">
+  <div class="backdrop" :style="haveBackdrop">
     <div class="gradian">
-      <div class="container" id="container">
+      <div id="container" class="container">
         <div class="button">
           <router-link to="/"> <button>&#60; Back</button></router-link>
         </div>
         <div class="flex flex-nowrap top">
           <img
-            v-if="tvSerie.poster_path != null"
-            :src="`${picUrl}${tvSerie.poster_path}`"
-            :alt="`${tvSerie.name}`"
+v-if="tvSerie.poster_path != null" :src="`${picUrl}${tvSerie.poster_path}`" :alt="`${tvSerie.name}`"
             class="poster" />
           <div class="movie-info">
             <div class="flex">
-              <div class="vote" v-if="tvSerie.vote_average > 0">
-                <h2>{{ tvSerie.vote_average }}</h2>
+              <div v-if="tvSerie.vote_average > 0" class="vote">
+                <h2>{{ tvSerie.vote_average.toFixed(1) }}</h2>
               </div>
               <div class="">
                 <div class="title">
@@ -34,30 +32,30 @@
             <div class="overview">
               <p>{{ tvSerie.overview }}</p>
             </div>
-            <div class="status" v-if="tvSerie.status">
+            <div v-if="tvSerie.status" class="status">
               <p>
                 <strong>{{ tvSerie.status }}</strong>
               </p>
             </div>
-            <div class="next-episode" v-if="tvSerie.number_of_seasons">
+            <div v-if="tvSerie.number_of_seasons" class="next-episode">
               <p>
                 {{ tvSerie.name }} has {{ tvSerie.number_of_seasons }} seasons
                 and {{ tvSerie.number_of_episodes }} episodes
               </p>
             </div>
-            <div class="buget" v-if="tvSerie.budget > 0">
+            <div v-if="tvSerie.budget > 0" class="buget">
               <p>Budget: {{ tvSerie.budget.toLocaleString() }}</p>
             </div>
-            <div class="revenue" v-if="tvSerie.revenue > 0">
+            <div v-if="tvSerie.revenue > 0" class="revenue">
               <p>Revenue {{ tvSerie.revenue.toLocaleString() }}</p>
             </div>
-            <div class="calc" v-if="tvSerie.revenue > 0">
+            <div v-if="tvSerie.revenue > 0" class="calc">
               <p>
                 Profit:
                 {{ (tvSerie.revenue - tvSerie.budget).toLocaleString() }}
               </p>
             </div>
-            <div class="collection flex" v-if="tvSerie.belongs_to_collection">
+            <div v-if="tvSerie.belongs_to_collection" class="collection flex">
               <span> {{ tvSerie.belongs_to_collection.name }}</span>
             </div>
           </div>
@@ -65,49 +63,38 @@
       </div>
     </div>
   </div>
-  <div class="container" id="container">
+  <div id="container" class="container">
     <h3 class="margin-top">Cast</h3>
-    <div class="slider" v-if="tvSerie.name">
+    <div v-if="tvSerie.name" class="slider">
       <Splide
-        :options="{
-          drag: 'free',
-          fixedWidth: '130px',
-          snap: true,
-          perPage: 7,
-          breakpoints: {
-            900: {
-              perPage: 6,
-            },
-            790: {
-              perPage: 5,
-            },
-            650: {
-              perPage: 4,
-            },
-            540: {
-              perPage: 3,
-            },
-            410: {
-              perPage: 2,
-            },
+:options="{
+        drag: 'free',
+        fixedWidth: '130px',
+        snap: true,
+        perPage: 7,
+        breakpoints: {
+          900: {
+            perPage: 6,
           },
-        }">
-        <SplideSlide
-          class="cast"
-          v-for="(cast, id) in tvSerie.credits.cast.slice(0, 14)"
-          :key="id">
-          <router-link
-            :to="'/person/' + cast.id"
-            class="flex flex-col flex-nogap">
-            <img
-              v-if="cast.profile_path"
-              :src="`${picUrl}${cast.profile_path}`"
-              alt="" />
+          790: {
+            perPage: 5,
+          },
+          650: {
+            perPage: 4,
+          },
+          540: {
+            perPage: 3,
+          },
+          410: {
+            perPage: 2,
+          },
+        },
+      }">
+        <SplideSlide v-for="(cast, id) in tvSerie.credits.cast.slice(0, 14)" :key="id" class="cast">
+          <router-link :to="'/person/' + cast.id" class="flex flex-col flex-nogap">
+            <img v-if="cast.profile_path" :src="`${picUrl}${cast.profile_path}`" alt="" />
 
-            <img
-              v-else
-              src="@/assets/img/noprofile.png"
-              alt="No profile image" />
+            <img v-else src="@/assets/img/noprofile.png" alt="No profile image" />
 
             <p>
               <strong>{{ cast.character }}</strong>
@@ -126,7 +113,7 @@
       </Splide>
     </div>
     <div class="grid2 margin-top">
-      <div class="similar" v-if="tvSerie.name">
+      <div v-if="tvSerie.name" class="similar">
         <h3>similar</h3>
         <div v-for="(sim, id) in tvSerie.similar.results.slice(0, 5)" :key="id">
           <router-link :to="'/tv/' + sim.id">
@@ -142,17 +129,12 @@
           </router-link>
         </div>
       </div>
-      <div class="recommendations" v-if="tvSerie.name">
+      <div v-if="tvSerie.name" class="recommendations">
         <h3>recommendations</h3>
-        <div
-          v-for="(rec, id) in tvSerie.recommendations.results.slice(0, 5)"
-          :key="id">
+        <div v-for="(rec, id) in tvSerie.recommendations.results.slice(0, 5)" :key="id">
           <router-link :to="'/tv/' + rec.id">
             <div class="card flex flex-center">
-              <img
-                v-if="rec.poster_path"
-                :src="`${picUrl}${rec.poster_path}`"
-                :alt="rec.name" />
+              <img v-if="rec.poster_path" :src="`${picUrl}${rec.poster_path}`" :alt="rec.name" />
               <div v-else class="empty-poster"></div>
 
               <h4>{{ rec.vote_average.toFixed(1) }}</h4>
@@ -174,6 +156,7 @@ import { Splide, SplideSlide } from '@splidejs/vue-splide'
 import '@splidejs/vue-splide/css'
 
 export default {
+  components: { Splide, SplideSlide },
   setup() {
     const tvSerie = ref([])
     const route = useRoute()
@@ -210,7 +193,6 @@ export default {
       haveBackdrop,
     }
   },
-  components: { Splide, SplideSlide },
 }
 </script>
 <style lang="scss" scoped>
@@ -323,8 +305,7 @@ img {
   }
 
   .collection {
-    h3 {
-    }
+    h3 {}
 
     span {
       background-color: var(--prime-color);

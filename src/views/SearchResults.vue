@@ -4,9 +4,9 @@
     <h2>Search Results</h2>
     <div class="flex flex-wrap">
       <div
-        class="card flex flex-col"
         v-for="(item, id) in searchResult"
-        :key="id">
+        :key="id"
+        class="card flex flex-col">
         <router-link :to="'/' + item.media_type + '/' + item.id">
           <div class="poster">
             <img
@@ -50,6 +50,7 @@ import { ref, onBeforeMount } from 'vue'
 const picUrl = 'https://image.tmdb.org/t/p/w500'
 
 export default {
+  components: { SearchBar },
   setup() {
     const route = useRoute()
     const searchTerm = route.params.id
@@ -88,7 +89,6 @@ export default {
       picUrl,
     }
   },
-  components: { SearchBar },
 }
 </script>
 

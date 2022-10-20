@@ -6,9 +6,9 @@
         @keydown.enter="$router.push({ path: `/search/` + `${search}` })"
         @click.prevent="searchItems()">
         <input
+          v-model="search"
           type="text"
           placeholder="Search for movies or series"
-          v-model="search"
           @focus="showResults = true"
           @blur="showResults = false" />
         <button v-if="search != ''" @click="clearSearch()">X</button>
@@ -17,7 +17,7 @@
           value="Search"
           @click="$router.push({ path: `/search/` + `${search}` })" />
       </form>
-      <div class="search-results" v-if="showResults" @mousedown.prevent>
+      <div v-if="showResults" class="search-results" @mousedown.prevent>
         <div class="wrapper">
           <ul>
             <li v-for="(item, id) in searchResult.slice(0, 12)" :key="id">

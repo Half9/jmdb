@@ -1,7 +1,7 @@
 <template>
-  <div class="backdrop" v-bind:style="haveBackdrop">
+  <div class="backdrop" :style="haveBackdrop">
     <div class="gradian">
-      <div class="container" id="container">
+      <div id="container" class="container">
         <div class="button">
           <router-link to="/"> <button>&#60; Back</button></router-link>
         </div>
@@ -13,7 +13,7 @@
             class="poster" />
           <div class="movie-info">
             <div class="flex">
-              <div class="vote" v-if="movie.vote_average > 0">
+              <div v-if="movie.vote_average > 0" class="vote">
                 <h2>{{ movie.vote_average.toFixed(1) }}</h2>
               </div>
               <div class="">
@@ -33,7 +33,7 @@
             <div class="overview">
               <p>{{ movie.overview }}</p>
             </div>
-            <div class="status" v-if="movie.status">
+            <div v-if="movie.status" class="status">
               <p>
                 <strong>{{ movie.status }}</strong>
                 <span v-if="movie.status == 'Released'">
@@ -41,22 +41,22 @@
                 >
               </p>
             </div>
-            <div class="runtime" v-if="movie.runtime > 0">
+            <div v-if="movie.runtime > 0" class="runtime">
               <p>{{ runeTime(movie.runtime) }}</p>
             </div>
-            <div class="buget" v-if="movie.budget > 0">
+            <div v-if="movie.budget > 0" class="buget">
               <p>Budget: {{ movie.budget.toLocaleString() }}</p>
             </div>
-            <div class="revenue" v-if="movie.revenue > 0">
+            <div v-if="movie.revenue > 0" class="revenue">
               <p>Revenue {{ movie.revenue.toLocaleString() }}</p>
             </div>
-            <div class="calc" v-if="movie.revenue > 0">
+            <div v-if="movie.revenue > 0" class="calc">
               <p>
                 Profit:
                 {{ (movie.revenue - movie.budget).toLocaleString() }}
               </p>
             </div>
-            <div class="collection flex" v-if="movie.belongs_to_collection">
+            <div v-if="movie.belongs_to_collection" class="collection flex">
               <span> {{ movie.belongs_to_collection.name }}</span>
             </div>
           </div>
@@ -64,9 +64,9 @@
       </div>
     </div>
   </div>
-  <div class="container" id="container">
+  <div id="container" class="container">
     <h3 class="margin-top">Cast</h3>
-    <div class="slider" v-if="movie.title">
+    <div v-if="movie.title" class="slider">
       <Splide
         :options="{
           drag: 'free',
@@ -92,9 +92,9 @@
           },
         }">
         <SplideSlide
-          class="cast"
           v-for="(cast, id) in movie.credits.cast.slice(0, 14)"
-          :key="id">
+          :key="id"
+          class="cast">
           <router-link
             :to="'/person/' + cast.id"
             class="flex flex-col flex-nogap">
@@ -125,7 +125,7 @@
       </Splide>
     </div>
     <div class="grid2 margin-top">
-      <div class="similar" v-if="movie.title">
+      <div v-if="movie.title" class="similar">
         <h3>similar</h3>
         <div v-for="(sim, id) in movie.similar.results.slice(0, 5)" :key="id">
           <router-link :to="'/movie/' + sim.id">
@@ -141,7 +141,7 @@
           </router-link>
         </div>
       </div>
-      <div class="recommendations" v-if="movie.title">
+      <div v-if="movie.title" class="recommendations">
         <h3>recommendations</h3>
         <div
           v-for="(rec, id) in movie.recommendations.results.slice(0, 5)"
@@ -173,6 +173,7 @@ import { Splide, SplideSlide } from '@splidejs/vue-splide'
 import '@splidejs/vue-splide/css'
 
 export default {
+  components: { Splide, SplideSlide },
   setup() {
     const movie = ref([])
     const route = useRoute()
@@ -228,7 +229,6 @@ export default {
       haveBackdrop,
     }
   },
-  components: { Splide, SplideSlide },
 }
 </script>
 <style lang="scss" scoped>

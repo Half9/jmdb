@@ -1,5 +1,5 @@
 <template>
-  <div class="flex top" v-if="showSearch">
+  <div v-if="showSearch" class="flex top">
     <h2>Quick Search Results</h2>
     <button @click="clearSearch()">Reset</button>
   </div>
@@ -31,9 +31,9 @@
       },
     }">
     <SplideSlide
-      class="card flex flex-col"
       v-for="(item, id) in searchResult.slice(0, 14)"
-      :key="id">
+      :key="id"
+      class="card flex flex-col">
       <router-link :to="'/' + item.media_type + '/' + item.id">
         <div class="poster">
           <img
@@ -77,6 +77,7 @@ const picUrl = 'https://image.tmdb.org/t/p/w500'
 const searchResult = ref([])
 
 export default {
+  components: { Splide, SplideSlide },
   setup() {
     if (window.localStorage.getItem('searchResultHistory') !== null) {
       searchResult.value = JSON.parse(
@@ -100,7 +101,6 @@ export default {
       picUrl,
     }
   },
-  components: { Splide, SplideSlide },
 }
 </script>
 

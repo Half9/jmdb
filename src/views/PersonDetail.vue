@@ -1,15 +1,13 @@
 <template>
-  <div class="backdrop" v-bind:style="haveBackdrop">
+  <div class="backdrop" :style="haveBackdrop">
     <div class="gradian">
-      <div class="container" id="container">
+      <div id="container" class="container">
         <div class="button">
           <router-link to="/"> <button>&#60; Back</button></router-link>
         </div>
         <div class="flex flex-nowrap top">
           <img
-            v-if="person.profile_path != null"
-            :src="`${picUrl}${person.profile_path}`"
-            :alt="`${person.name}`"
+v-if="person.profile_path != null" :src="`${picUrl}${person.profile_path}`" :alt="`${person.name}`"
             class="poster" />
           <div class="movie-info">
             <div class="flex">
@@ -29,33 +27,48 @@
               <p v-if="person.biography">{{ person.biography }}</p>
               <p v-else>No biography.</p>
             </div>
-            <div class="status" v-if="person.status">
-              <p>
-                <strong>{{ person.status }}</strong>
-                <span v-if="person.status == 'Released'">
-                  in {{ person.release_date.substring(0, 4) }}</span
-                >
-              </p>
-            </div>
-            <div class="runtime" v-if="person.runtime > 0">
-              <p>{{ runeTime(person.runtime) }}</p>
-            </div>
-            <div class="buget" v-if="person.budget > 0">
-              <p>Budget: {{ person.budget.toLocaleString() }}</p>
-            </div>
-            <div class="revenue" v-if="person.revenue > 0">
-              <p>Revenue {{ person.revenue.toLocaleString() }}</p>
-            </div>
-            <div class="calc" v-if="person.revenue > 0">
-              <p>
-                Profit:
-                {{ (person.revenue - person.budget).toLocaleString() }}
-              </p>
-            </div>
-            <div class="collection flex" v-if="person.belongs_to_collection">
-              <span> {{ person.belongs_to_collection.name }}</span>
-            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="container" class="container">
+    <h2 class="margin-top">Know for</h2>
+    <div class="grid2 margin-top">
+
+      <div v-if="person.tv_credits" class="similar">
+        <h3>Movie</h3>
+        <div v-for="(cast, id) in person.movie_credits.cast.slice(0, 30)" :key="id">
+          <router-link :to="'/movie/' + cast.id">
+            <div class="card flex flex-center">
+              <img :src="`${picUrl}${cast.poster_path}`" :alt="cast.title" />
+
+              <h4>{{ cast.vote_average.toFixed(1) }}</h4>
+
+              <p>{{ cast.title }}</p>
+              <p>{{ cast.release_date.substring(0, 4) }}</p>
+              <p>></p>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <div v-if="person.tv_credits" class="recommendations">
+        <h3>Tv series</h3>
+        <div v-for="(tv, id) in person.tv_credits.cast.slice(0, 30)" :key="id">
+          <router-link :to="'/movie/' + tv.id">
+            <div class="card flex flex-center">
+              <img v-if="tv.poster_path" :src="`${picUrl}${tv.poster_path}`" :alt="tv.title" />
+              <div v-else class="empty-poster"></div>
+
+              <h4>{{ tv.vote_average.toFixed(1) }}</h4>
+
+              <p>{{ tv.original_name }}</p>
+
+              <p>{{ tv.first_air_date.substring(0, 4) }}</p>
+              <p>></p>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -193,7 +206,7 @@ img {
     p {
       font-weight: 400;
       font-size: 0.9rem;
-      line-height: 1.3rem;
+      line-height: 1.5rem;
       // margin-bottom: 1rem;
     }
   }
@@ -218,8 +231,7 @@ img {
   }
 
   .collection {
-    h3 {
-    }
+    h3 {}
 
     span {
       background-color: var(--prime-color);
