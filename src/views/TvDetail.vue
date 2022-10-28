@@ -183,7 +183,6 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           tvSerie.value = data.data
-          // console.log(tvSerie.value);
         })
     })
 

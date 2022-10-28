@@ -98,7 +98,6 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           person.value = data.data
-          console.log(person.value)
         })
     })
 

@@ -1,28 +1,5 @@
-# jmdb
+#Jimmy Movie Database
 
-## Project setup
-```
-npm install
-```
+Mijn eerste echte Vue project. Ik wilde snel kunnen zien of een film of serie leuk is om te kijken.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-npm run lint -- --fix
-npm run serve
-netlify dev
+[Kijk hier voor meer informatie](https://jbosch.dev/projecten/jimmy-movie-database)

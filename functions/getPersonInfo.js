@@ -2,14 +2,12 @@ const fetch = require('node-fetch')
 
 exports.handler = async function (event, context) {
   const numberID = event.body
-  console.log(numberID)
 
   const searchItem = async () => {
     const res = await fetch(`
 ${process.env.BASE_URL}/person/${numberID}?api_key=${process.env.API_KEY}&append_to_response=movie_credits,tv_credits`)
 
     const data = await res.json()
-    // console.log(data);
     return data
   }
 
