@@ -1,4 +1,4 @@
-#Jimmy Movie Database
+# Jimmy Movie Database
 
 Mijn eerste echte Vue project. Ik wilde snel kunnen zien of een film of serie leuk is om te kijken.
 
